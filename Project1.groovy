@@ -1,5 +1,3 @@
-import jenkins.model.*
-jenkins = jenkins.instance
 pipeline {
     agent none // Use agent none to define where each stage will run
     environment {
