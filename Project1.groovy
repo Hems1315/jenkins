@@ -1,9 +1,11 @@
 pipeline {
-    agent none // Use agent none to define where each stage will run
+    agent none // Define where each stage will run
+
     environment {
         M2_HOME = '/usr/share/apache-maven'
         PATH = "${M2_HOME}/bin:${env.PATH}"
     }
+
     stages {
         stage('Checkout') {
             agent { label 'master' } // This stage will run on the master node
@@ -24,9 +26,7 @@ pipeline {
             agent { label 'test' } // Testing will run on the test slave node
             steps {
                 script {
-                    
                     sh 'mvn test'
-                    
                 }
             }
         }
