@@ -24,9 +24,9 @@ pipeline {
             agent { label 'test' } // Testing will run on the test slave node
             steps {
                 script {
-                    { 
+                    
                     sh 'mvn test'
-                    }
+                    
                 }
             }
         }
