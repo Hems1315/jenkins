@@ -6,7 +6,7 @@ pipeline {
             agent { label 'master' } // This stage will run on the master node
             steps {
                 // Checkout the code from Git
-                git url: 'https://your-git-repository-url.git', branch: 'main'
+                git url: 'https://github.com/Hems1315/jenkins.git', branch: 'main'
             }
         }
         stage('Build') {
