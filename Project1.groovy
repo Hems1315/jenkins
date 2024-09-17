@@ -1,6 +1,9 @@
 pipeline {
     agent none // Use agent none to define where each stage will run
-
+    environment {
+      M2_HOME = '/usr/share/apache-maven'
+       PATH = "${M2_HOME}/bin:${env.PATH}"
+    }
     stages {
         stage('Checkout') {
             agent { label 'master' } // This stage will run on the master node
@@ -13,10 +16,8 @@ pipeline {
             agent { label 'build' } // Build will run on the build slave node
             steps {
                 script {
-                    dir('/home/ec2-user/workspace/Testing') { // Ensure the directory is correct
-                        echo 'Building the project with Maven'
-                        sh 'ls -la' // List files to verify that pom.xml is present
-                        sh 'mvn clean package'
+                     { 
+                         sh 'mvn clean package'
                     }
                 }
             }
@@ -25,10 +26,8 @@ pipeline {
             agent { label 'test' } // Testing will run on the test slave node
             steps {
                 script {
-                    dir('/home/ec2-user/workspace/Testing') { // Ensure the directory is correct
-                        echo 'Running tests with Maven'
-                        sh 'ls -la' // List files to verify that pom.xml is present
-                        sh 'mvn test'
+                    { 
+                    sh 'mvn test'
                     }
                 }
             }
