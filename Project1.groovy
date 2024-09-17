@@ -1,8 +1,8 @@
 pipeline {
     agent none // Use agent none to define where each stage will run
     environment {
-      M2_HOME = '/usr/share/apache-maven'
-       PATH = "${M2_HOME}/bin:${env.PATH}"
+        M2_HOME = '/usr/share/apache-maven'
+        PATH = "${M2_HOME}/bin:${env.PATH}"
     }
     stages {
         stage('Checkout') {
