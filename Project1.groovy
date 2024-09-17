@@ -14,7 +14,7 @@ pipeline {
             steps {
                 script {
                     // Run Maven build
-                    sh 'mvn clean package'
+                    sh 'mvn clean --file *.pom'
                 }
             }
         }
