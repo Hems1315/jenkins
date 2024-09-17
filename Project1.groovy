@@ -16,9 +16,7 @@ pipeline {
             agent { label 'build' } // Build will run on the build slave node
             steps {
                 script {
-                     { 
-                         sh 'mvn clean package'
-                    }
+                    sh 'mvn clean package'
                 }
             }
         }
