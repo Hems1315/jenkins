@@ -1,54 +1,31 @@
 pipeline {
-    agent none // Define where each stage will run
-
-    environment {
-        M2_HOME = '/usr/share/apache-maven'
-        PATH = "${M2_HOME}/bin:${env.PATH}"
-    }
-
+    agent none
     stages {
-        stage('Checkout') {
-            agent { label 'master' } // This stage will run on the master node
+        stage('Clone Repository') {
+            agent { label 'master' }  // Run this on the master node
             steps {
-                // Checkout the code from Git
                 git url: 'https://github.com/Hems1315/jenkins.git', branch: 'main'
             }
         }
         stage('Build') {
-            agent { label 'build' } // Build will run on the build slave node
+            agent { label 'slave1' }  // Build on Slave Node 1
             steps {
-                script {
-                    sh 'mvn clean package'
-                }
+                sh 'mvn clean package'  // Maven build command
             }
         }
         stage('Test') {
-            agent { label 'test' } // Testing will run on the test slave node
+            agent { label 'slave2' }  // Run tests on Slave Node 2
             steps {
-                script {
-                    sh 'mvn test'
-                }
-            }
-        }
-        stage('Archive') {
-            agent { label 'master' } // Archive results on the master node
-            steps {
-                echo 'Archiving build artifacts and test results'
-                archiveArtifacts artifacts: '**/target/*.jar', allowEmptyArchive: true
-                junit '**/target/test-classes/*.xml'
+                sh 'mvn test'  // Maven test command
             }
         }
     }
-
     post {
-        always {
-            echo 'Pipeline completed.'
-        }
         success {
-            echo 'Build was successful.'
+            echo 'Build and Tests completed successfully!'
         }
         failure {
-            echo 'Build failed.'
+            echo 'Build or Tests failed.'
         }
     }
 }
