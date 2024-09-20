@@ -1,0 +1,41 @@
+pipeline {
+    agent none  // No global agent
+    stages {
+        stage('Clone Repository') {
+            agent { label 'master' }  // Run this on the master node
+            steps {
+                // Clone the repository on the master node
+                git url: 'https://github.com/Hems1315/jenkins.git', branch: 'main'
+            }
+        }
+        stage('List Files') {
+            agent { label 'slave1' }  // Check files on Slave Node 1
+            steps {
+                // List files in the current directory
+                sh 'ls -l'
+            }
+        }
+        stage('Build') {
+            agent { label 'slave1' }  // Compile on Slave Node 1
+            steps {
+                // Compile the project using Maven
+                sh 'mvn clean package'  
+            }
+        }
+        stage('Test') {
+            agent { label 'slave2' }  // Run tests on Slave Node 2
+            steps {
+                // Run tests using Maven
+                sh 'mvn test'  
+            }
+        }
+    }
+    post {
+        success {
+            echo 'Build and Tests completed successfully!'
+        }
+        failure {
+            echo 'Build or Tests failed.'
+        }
+    }
+}
