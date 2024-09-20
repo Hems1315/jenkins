@@ -1,1 +1,22 @@
-mvn archetype:generate -DgroupId=com.temenos -DartifactId=Jenkins-EC2 -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.github.tadukoo.maven</groupId>
+		<artifactId>TadukooJUnitPOM</artifactId>
+		<version>0.5-Beta</version>
+	</parent>
+	<groupId>mavenapp</groupId>
+	<artifactId>softmax-app</artifactId>
+	<version>1.5</version>
+	<packaging>pom</packaging>
+	<description>Mavenproject</description>
+	<modules>
+		<module>153</module>
+	</modules>
+	<properties>
+		<!-- Info -->
+		<shortName>mvnproj</shortName>
+		<tadukoo.util.version>0.6-Beta</tadukoo.util.version>
+	</properties>
+</project>
