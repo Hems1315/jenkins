@@ -10,7 +10,7 @@ pipeline {
         stage('Build') {
             agent { label 'slave1' }  // Build on Slave Node 1
             steps {
-               dir('/home/ec2-user/workspace/POM.xml)
+               dir('/home/ec2-user/workspace/Jenkins-Project1/mvn-app/POM.xml)
                 sh 'mvn clean package'  // Maven build command
             }
         }
