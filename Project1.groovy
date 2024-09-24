@@ -10,14 +10,17 @@ pipeline {
         stage('Build') {
             agent { label 'slave1' }  // Build on Slave Node 1
             steps {
-               dir('/home/ec2-user/workspace/Jenkins-Project1/maven-app/pom.xml)
-                sh 'mvn clean package'  // Maven build command
+                dir('/home/ec2-user/maven-app') {  // Correct path to the directory containing pom.xml
+                    sh 'mvn clean package'  // Maven build command
+                }
             }
         }
         stage('Test') {
             agent { label 'slave2' }  // Run tests on Slave Node 2
             steps {
-                sh 'mvn test'  // Maven test command
+                dir('/home/ec2-user/maven-app') {  // Ensure you're in the correct directory
+                    sh 'mvn test'  // Maven test command
+                }
             }
         }
     }
